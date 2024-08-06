@@ -113,6 +113,10 @@ type ChartifyOpts struct {
 	TemplateFuncs template.FuncMap
 	// TemplateData is the data available via {{ . }} within .gotmpl files
 	TemplateData interface{}
+
+	// DryRun is a string to be set to client (does not connect to the cluster) or server (connects to the cluster)
+	DryRun string
+
 }
 
 type ChartifyOption interface {
@@ -401,6 +405,7 @@ func (r *Runner) Chartify(release, dirOrChart string, opts ...ChartifyOption) (s
 		Validate:     u.Validate,
 		KubeVersion:  u.KubeVersion,
 		ApiVersions:  u.ApiVersions,
+		DryRun:       u.DryRun,
 
 		WorkaroundOutputDirIssue: u.WorkaroundOutputDirIssue,
 	}
