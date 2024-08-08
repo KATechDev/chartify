@@ -55,8 +55,8 @@ type ReplaceWithRenderedOpts struct {
 	// templating in contrast to --validate
 	ApiVersions []string
 
-	// DryRun is a string to be set to client (does not connect to the cluster) or server (connects to the cluster)
-	DryRun string
+	// TemplateArgs
+	TemplateArgs string
 
 	// WorkaroundOutputDirIssue prevents chartify from using `helm template --output-dir` and let it use `helm template > some.yaml` instead to
 	// workaround the potential helm issue
@@ -87,8 +87,8 @@ func (r *Runner) ReplaceWithRendered(name, chartName, chartPath string, o Replac
 	}
 	additionalFlags += createFlagChain("api-versions", o.ApiVersions)
 
-	if o.DryRun != "" {
-		additionalFlags += fmt.Sprintf(" --dry-run=%s", o.DryRun)
+	if o.TemplateArgs != "" {
+		additionalFlags += fmt.Sprintf(" %s", o.TemplateArgs)
 	}
 
 	r.Logf("options: %v", o)
